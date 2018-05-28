@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_sbc"
+            android:icon="@drawable/ic_sbc"
+            android:title="Shop By Category" />
+        <item
+            android:id="@+id/nav_mo"
+            android:icon="@drawable/ic_mo"
+            android:title="My Orders" />
+        <item
+            android:id="@+id/nav_oan"
+            android:icon="@drawable/ic_oan"
+            android:title="Offers and notifications" />
+    </group>
+
+    <item android:title="More">
+        <menu>
+            <item
+                android:id="@+id/nav_cu"
+                android:icon="@drawable/ic_cu"
+                android:title="Contact us" />
+            <item
+                android:id="@+id/nav_raf"
+                android:icon="@drawable/ic_raf"
+                android:title="Rate and Feedback" />
+            <item
+                android:id="@+id/nav_rae"
+                android:icon="@drawable/ic_rae"
+                android:title="Refer and Earn"  />
+        </menu>
+    </item>
+
+</menu>
