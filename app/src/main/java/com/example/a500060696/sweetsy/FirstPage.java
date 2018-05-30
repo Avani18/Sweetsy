@@ -21,15 +21,27 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import java.lang.reflect.Field;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 
 public class FirstPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ViewFlipper myViewFlipper;
+    private float initialXPoint;
+    int[] image = { R.drawable.s1, R.drawable.s2,
+            R.drawable.s3, R.drawable.s4};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
+
+        myViewFlipper = (ViewFlipper) findViewById(R.id.myflipper);
 
         BottomNavigationView bottomNavigationView= (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,8 +84,44 @@ public class FirstPage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        for (int j = 0; j < image.length; j++) {
+            ImageView imageView = new ImageView(FirstPage.this);
+            imageView.setImageResource(image[j]);
+            myViewFlipper.addView(imageView);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+        myViewFlipper.setAutoStart(true);
+        myViewFlipper.setFlipInterval(3000);
+        myViewFlipper.startFlipping();
+        myViewFlipper.setInAnimation(this, android.R.anim.fade_in);
+        myViewFlipper.setOutAnimation(this, android.R.anim.fade_out);
+
+
     }
 
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                initialXPoint = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float finalx = event.getX();
+                if (initialXPoint > finalx) {
+                    if (myViewFlipper.getDisplayedChild() == image.length)
+                        break;
+                    myViewFlipper.showNext();
+                } else {
+                    if (myViewFlipper.getDisplayedChild() == 0)
+                        break;
+                    myViewFlipper.showPrevious();
+                }
+                break;
+        }
+        return false;
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,6 +180,8 @@ public class FirstPage extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
 
 class BottomNavigationViewHelper {

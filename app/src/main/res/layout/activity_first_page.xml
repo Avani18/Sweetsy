@@ -9,16 +9,14 @@
     tools:openDrawer="start">
 
 
-
     <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_navigation"
-        android:paddingTop="600dp"
+        android:paddingTop="466dp"
         app:itemBackground="@android:color/white"
         app:itemIconTint="@android:color/black"
         app:menu="@menu/bottom_navigation"
-
         >
     </android.support.design.widget.BottomNavigationView>
 
@@ -37,5 +35,26 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_first_page"
         app:menu="@menu/activity_first_page_drawer" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ViewFlipper
+            android:id="@+id/myflipper"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="3dp"
+
+            >
+
+        </ViewFlipper>
+
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
+
+    
