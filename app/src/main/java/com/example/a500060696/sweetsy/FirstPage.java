@@ -1,6 +1,13 @@
 package com.example.a500060696.sweetsy;
 
 import android.annotation.SuppressLint;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -31,6 +38,10 @@ import android.widget.ViewFlipper;
 public class FirstPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    RecyclerView recyclerView;
+    ProductAdapter adapter;
+    List<product> productList;
+
     private ViewFlipper myViewFlipper;
     private float initialXPoint;
     int[] image = { R.drawable.s1, R.drawable.s2,
@@ -41,36 +52,22 @@ public class FirstPage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
 
+
+        productList = new ArrayList<>();
+        recyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        recyclerView.setHasFixedSize(true) ;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        productList.add(new product( R.drawable.s1, "Cake 1", 4.3, 500));
+        productList.add(new product(R.drawable.s2, "Cake 2", 4.0, 450));
+
+
+        adapter= new ProductAdapter(this, productList);
+        recyclerView.setAdapter(adapter);
+
+
         myViewFlipper = (ViewFlipper) findViewById(R.id.myflipper);
-
-        BottomNavigationView bottomNavigationView= (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        Toast.makeText(FirstPage.this, "Action Home clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_sbc:
-                        Toast.makeText(FirstPage.this, "Action Shop By Category clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_search:
-                        Toast.makeText(FirstPage.this, "Action search clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_notification:
-                        Toast.makeText(FirstPage.this, "Action notification clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.action_profile:
-                        Toast.makeText(FirstPage.this, "Action profile clicked", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -184,27 +181,3 @@ public class FirstPage extends AppCompatActivity
 
 }
 
-class BottomNavigationViewHelper {
-    @SuppressLint("RestrictedApi")
-    public static void disableShiftMode(BottomNavigationView view) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                //noinspection RestrictedApi
-                item.setShiftingMode(false);
-                // set once again checked value, so view will be updated
-                //noinspection RestrictedApi
-                item.setChecked(item.getItemData().isChecked());
-            }
-        } catch (NoSuchFieldException e) {
-            Log.e("BNVHelper", "Unable to get shift mode field", e);
-        } catch (IllegalAccessException e) {
-            Log.e("BNVHelper", "Unable to change value of shift mode", e);
-        }
-    }
-}
