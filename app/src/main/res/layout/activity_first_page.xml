@@ -9,7 +9,6 @@
     tools:openDrawer="start">
 
 
-
     <include
         layout="@layout/app_bar_first_page"
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_first_page"
         app:menu="@menu/activity_first_page_drawer" />
+
     
     <LinearLayout
         android:layout_width="match_parent"

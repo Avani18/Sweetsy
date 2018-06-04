@@ -1,6 +1,8 @@
 package com.example.a500060696.sweetsy;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,7 +54,6 @@ public class FirstPage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
 
-
         productList = new ArrayList<>();
         recyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -68,6 +69,7 @@ public class FirstPage extends AppCompatActivity
 
 
         myViewFlipper = (ViewFlipper) findViewById(R.id.myflipper);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -81,6 +83,7 @@ public class FirstPage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         for (int j = 0; j < image.length; j++) {
             ImageView imageView = new ImageView(FirstPage.this);
@@ -96,6 +99,7 @@ public class FirstPage extends AppCompatActivity
 
 
     }
+
 
 
     @Override
@@ -151,6 +155,7 @@ public class FirstPage extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -158,9 +163,9 @@ public class FirstPage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_sbc) {
 
+        } else if (id == R.id.nav_sbc) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_mo) {
 
         } else if (id == R.id.nav_oan) {
@@ -177,6 +182,7 @@ public class FirstPage extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }
